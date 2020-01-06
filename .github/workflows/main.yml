@@ -11,4 +11,4 @@ jobs:
       with:
         url: 'https://voorhoede.nl'
     - name: Get the result
-      run: echo "${{steps.link-report.outputs.result}}
+      run: echo "${{steps.link-report.outputs.result}}"

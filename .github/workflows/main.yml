@@ -7,7 +7,7 @@ jobs:
     steps:
     - name: Check links
       id: link-report
-      uses: celinekurpershoek/github-actions-link-checker
+      uses: celinekurpershoek/github-actions-link-checker@master
       with:
         url: 'https://voorhoede.nl'
     # Use the output from the `hello` step

@@ -4,6 +4,6 @@ workflow "Link check" {
 }
 
 action "linkcheck" {
-  uses = "./.github/workflows/push.yml"
+  uses = "./workflows/main.yml"
   args = "https://voorhoede.nl"
 }

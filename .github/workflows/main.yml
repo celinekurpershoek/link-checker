@@ -12,4 +12,4 @@ jobs:
         url: 'https://voorhoede.nl'
     # Use the output from the `hello` step
     - name: Get the output time
-      run: echo "it worked"
+      run: echo "${{steps.link-report.outputs.result}}

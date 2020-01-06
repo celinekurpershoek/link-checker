@@ -33,4 +33,6 @@ else
     echo -e "${GREEN} ${RESULT} ${NC}"
 fi
 
+echo ::set-output name=result::$RESULT
+
 echo -e "${YELLOW}=========================================================================${NC}"

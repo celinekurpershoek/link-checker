@@ -1,0 +1,16 @@
+name: 'broken-link-check'
+description: 'Find broken links, missing images, etc within your HTML.'
+author: 'Celine Kurpershoek'
+inputs:
+  url:  # id of input
+    description: 'Url of site'
+    required: true
+    default: 'https://google.com'
+outputs:
+  time: # id of output
+    description: 'Report of links'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}

@@ -1,0 +1,15 @@
+on: [push]
+
+jobs:
+  broken_link_checker_job:
+    runs-on: ubuntu-latest
+    name: Check for broken links on domain
+    steps:
+    - name: Check links
+      id: link-report
+      uses: celinekurpershoek/github-actions-link-checker
+      with:
+        url: 'https://voorhoede.nl'
+    # Use the output from the `hello` step
+    - name: Get the output time
+      run: echo "it worked"

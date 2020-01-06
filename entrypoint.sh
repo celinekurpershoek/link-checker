@@ -28,7 +28,6 @@ then
     echo -e "${RED} ${RESULT}: ${NC}"
     #todo put each result on new line:
     echo $(grep -E 'BROKEN' <<< $OUTPUT | awk '{print "- " $2 "\n" }')
-    exit 1
 else 
     RESULT="Checked $TOTAL_COUNT link(s), no broken links found!"
     echo -e "${GREEN} ${RESULT} ${NC}"

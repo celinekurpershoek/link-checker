@@ -10,6 +10,5 @@ jobs:
       uses: celinekurpershoek/github-actions-link-checker@master
       with:
         url: 'https://voorhoede.nl'
-    # Use the output from the `hello` step
-    - name: Get the output time
+    - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}

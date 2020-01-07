@@ -23,7 +23,7 @@ jobs:
       with:
         url: '{YOUR URL HERE}'
     - name: Get the result
-      run: echo "${{steps.link-report.outputs.result}}
+      run: echo "${{steps.link-report.outputs.result}}"
 ```
 
 ### todo:

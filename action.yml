@@ -5,7 +5,15 @@ inputs:
   url:  # id of input
     description: 'Url of site'
     required: true
-    default: 'https://google.com'
+    default: 'https://github.com/celinekurpershoek/github-actions-link-checker'
+  follow:
+    description: 'Overwrite standard skipping rel=nofollow links'
+    required: false
+    default: true
+  ignorePatterns: 
+    description: 'Ignore urls based on strings'
+    required: false
+    default: ''
 outputs:
   result: # id of output
     description: 'Report of links'

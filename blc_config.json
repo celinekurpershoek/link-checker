@@ -1,8 +1,0 @@
-{
-    "ignorePatterns": [
-        {
-            "pattern": "github"
-        }
-    ],
-    "follow": true
-}

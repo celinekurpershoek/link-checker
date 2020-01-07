@@ -10,5 +10,7 @@ jobs:
       uses: celinekurpershoek/github-actions-link-checker@master
       with:
         url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
+        follow: false
+        ignoreUrls: 'github'
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

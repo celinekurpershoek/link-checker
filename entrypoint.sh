@@ -4,42 +4,37 @@ NC='\033[0m' # No Color
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
+PURPLE='\033[0;34m'
 
 npm i -g broken-link-checker -s
 
-CONFIG_FILE=blc_config.json
+echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 
-echo -e "$YELLOW=========================> BROKEN LINK CHECKER <=========================$NC"
-echo -e "Running broken link checker on url: $GREEN $1 $NC"
+# todo map variables to names
+echo -e "Running broken link checker on url: $GREEN $1 $2 $3 $NC"
 
-if [ -f "$CONFIG_FILE" ]; then
-    IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $CONFIG_FILE`
-    FOLLOW=`jq '.follow' $CONFIG_FILE`
-    echo -e "with config file: $GREEN $CONFIG_FILE$NC"
 
-    # Create exclude string based on config file
-    EXCLUDE=""
-    
-    for PATTERN in $IGNORE_PATTERNS; do
-        EXCLUDE+="--exclude $PATTERN "
-    done
+# IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $CONFIG_FILE`
+echo -e "with settings: $PURPLE skip no-follow links: $YELLOW$2, $PURPLE exclude urls that match: $YELLOW$3 $NC"
 
-    SET_FOLLOW=""
-    if [ $FOLLOW ] 
-    then
-        SET_FOLLOW+="--follow"
-    fi
+# Create exclude string based on config file
+EXCLUDE=""
 
-    # Create command and remove extra quotes
-    COMMAND=`echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g'`
+for PATTERN in $3; do
+    EXCLUDE+="--exclude $PATTERN "
+done
 
-    # Put result in variable with $()
-    OUTPUT=`exec $COMMAND`
-
-else
-    echo "Can't find $CONFIG_FILE"
-    OUTPUT=`exec blc $1`
+SET_FOLLOW=""
+if [ $2 = true ] 
+then
+    SET_FOLLOW+="--follow"
 fi
+
+# Create command and remove extra quotes
+COMMAND=`echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g'`
+
+# Put result in variable with $()
+OUTPUT=`exec $COMMAND`
 
 # Count broken and total links
 BROKEN_COUNT=`grep -o 'BROKEN' <<< $OUTPUT | grep 'BROKEN' -c`
@@ -59,4 +54,4 @@ fi
 
 echo ::set-output name=result::$RESULT
 
-echo -e "$YELLOW=========================================================================$NC"
+echo -e "$PURPLE ============================== $NC"

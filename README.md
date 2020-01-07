@@ -9,7 +9,7 @@ Create a new file in your repository .github/workflows/action.yml.
 
 Copy-paste the folloing workflow in your action.yml file:
 
-```
+```js
 on: [push]
 
 jobs:
@@ -22,29 +22,11 @@ jobs:
       uses: celinekurpershoek/github-actions-link-checker@master
       with:
         url: '{Site url to check}' /* (https://..) */
+      follow: false /* optional */
+      ignoreUrls: 'github' /* optional */
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"
 ```
-
-## Options
-
-Create a a blc-config.json file in the root of your repository with this as an example:
-
-```json
-{
-    "ignorePatterns": [
-        {
-            "pattern": "linkedin"
-        },
-        {
-            "pattern": "example2"
-        }
-    ],
-    "follow": false 
-}
-
-```
-
 
 ### todo:
 - [ ] Create issue if broken urls are found

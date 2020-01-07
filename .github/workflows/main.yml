@@ -10,7 +10,5 @@ jobs:
       uses: celinekurpershoek/github-actions-link-checker@master
       with:
         url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
-      env:
-        CONFIG_FILE: './config.example.json'
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

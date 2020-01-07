@@ -26,11 +26,11 @@ jobs:
       run: echo "${{steps.link-report.outputs.result}}"
 ```
 
-## Exclude urls
+## Options
 
-Create a new config.json file in your repository with this as an example:
+Create a a blc-config.json file in the root of your repository with this as an example:
 
-```
+```json
 {
     "ignorePatterns": [
         {
@@ -39,27 +39,16 @@ Create a new config.json file in your repository with this as an example:
         {
             "pattern": "example2"
         }
-    ]
+    ],
+    "follow": false 
 }
-```
 
-In the .github/workflows/action.yml add extra lines below url:
-
-```
-... rest of config file
-    - name: Check links
-      id: link-report
-      uses: celinekurpershoek/github-actions-link-checker@master
-      with:
-        url: '{Site url to check}' /* (https://..) */
-      env: 
-        CONFIG_FILE: '{Path to file.json}
-... rest of action file
 ```
 
 
 ### todo:
-- [ ] Create issue for broken urls
+- [ ] Create issue if broken urls are found
+- [ ] Parse each broken link in report on new line
 
 
 ### Test

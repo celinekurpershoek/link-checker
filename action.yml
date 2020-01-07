@@ -6,10 +6,6 @@ inputs:
     description: 'Url of site'
     required: true
     default: 'https://google.com'
-  env:
-    CONFIG_FILE: 'Path to config file'
-    required: false
-    default: ''
 outputs:
   result: # id of output
     description: 'Report of links'

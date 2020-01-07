@@ -7,20 +7,15 @@ YELLOW='\033[0;33m'
 
 npm i -g broken-link-checker
 
-# TODO:
-# cant use the variables on the pattern
-# make it overwritable
-# fail when a link is broken and not ignored
-
-# Get ignore patterns from config file: 
+$CONFIG_FILE=blc-config.json
 
 echo -e "${YELLOW}=========================> BROKEN LINK CHECKER <=========================${NC}"
 echo "Running broken link checker on url: $1"
 
-if [ -f "$ENV_CONFIG" ]; then
-    IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $ENV_CONFIG`
-    FOLLOW=`jq '.follow' $ENV_CONFIG`
-    echo -e "with config file: ${GREEN}$ENV_CONFIG${NC}"
+if [ -f "$CONFIG_FILE" ]; then
+    IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $CONFIG_FILE`
+    FOLLOW=`jq '.follow' $CONFIG_FILE`
+    echo -e "with config file: ${GREEN}$CONFIG_FILE${NC}"
 
     # Create exclude string based on config file
     EXCLUDE=""
@@ -42,7 +37,7 @@ if [ -f "$ENV_CONFIG" ]; then
     OUTPUT=$(exec $COMMAND)
 
 else
-    echo "Can't find $ENV_CONFIG"
+    echo "Can't find $CONFIG_FILE"
     OUTPUT=$(exec blc $1)
 fi
 

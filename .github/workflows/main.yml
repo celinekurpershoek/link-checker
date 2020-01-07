@@ -11,6 +11,6 @@ jobs:
       with:
         url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
       env:
-        CONFIG_FILE: '../../config.example.json'
+        CONFIG_FILE: './config.example.json'
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

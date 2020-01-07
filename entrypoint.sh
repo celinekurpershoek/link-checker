@@ -5,17 +5,17 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 
-npm i -g broken-link-checker
+npm i -g broken-link-checker -s
 
 CONFIG_FILE=blc-config.json
 
-echo -e "${YELLOW}=========================> BROKEN LINK CHECKER <=========================${NC}"
-echo "Running broken link checker on url: $1"
+echo -e "$YELLOW=========================> BROKEN LINK CHECKER <=========================$NC"
+echo -e "Running broken link checker on url: $GREEN $1 $NC"
 
 if [ -f "$CONFIG_FILE" ]; then
     IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $CONFIG_FILE`
     FOLLOW=`jq '.follow' $CONFIG_FILE`
-    echo -e "with config file: ${GREEN}$CONFIG_FILE${NC}"
+    echo -e "with config file: $GREEN $CONFIG_FILE$NC"
 
     # Create exclude string based on config file
     EXCLUDE=""
@@ -34,28 +34,29 @@ if [ -f "$CONFIG_FILE" ]; then
     COMMAND=`echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g'`
 
     # Put result in variable with $()
-    OUTPUT=$(exec $COMMAND)
+    OUTPUT=`exec $COMMAND`
 
 else
     echo "Can't find $CONFIG_FILE"
-    OUTPUT=$(exec blc $1)
+    OUTPUT=`exec blc $1`
 fi
 
 # Count broken and total links
-BROKEN_COUNT=$(grep -o 'BROKEN' <<< $OUTPUT | grep 'BROKEN' -c)
-TOTAL_COUNT=$(grep -o '├' <<< $OUTPUT | grep '├' -c)
+BROKEN_COUNT=`grep -o 'BROKEN' <<< $OUTPUT | grep 'BROKEN' -c`
+TOTAL_COUNT=`grep -o '├' <<< $OUTPUT | grep '├' -c`
 
 if [ $BROKEN_COUNT -gt 0 ]
 then 
     RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)" 
-    echo -e "${RED} ${RESULT}: ${NC}"
+    echo -e "$RED ✗ Failed $RESULT: $NC"
     #todo put each result on new line:
-    echo $(grep -E 'BROKEN' <<< $OUTPUT | awk '{print "- " $2 "\n" }')
+    echo `grep -E 'BROKEN' <<< $OUTPUT | awk '{print "- " $2 "\n" }'`
+    exit 1
 else 
-    RESULT="Checked $TOTAL_COUNT link(s), no broken links found!"
-    echo -e "${GREEN} ${RESULT} ${NC}"
+    RESULT="✓ Checked $TOTAL_COUNT link(s), no broken links found!"
+    echo -e "$GREEN $RESULT $NC"
 fi
 
 echo ::set-output name=result::$RESULT
 
-echo -e "${YELLOW}=========================================================================${NC}"
+echo -e "$YELLOW=========================================================================$NC"

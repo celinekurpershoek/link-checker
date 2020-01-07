@@ -19,6 +19,7 @@ echo "Running broken link checker on url: $1"
 
 if [ -f "$ENV_CONFIG" ]; then
     IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $ENV_CONFIG`
+    FOLLOW=`jq '.follow' $ENV_CONFIG`
     echo -e "with config file: ${GREEN}$ENV_CONFIG${NC}"
 
     # Create exclude string based on config file
@@ -28,14 +29,20 @@ if [ -f "$ENV_CONFIG" ]; then
         EXCLUDE+="--exclude $PATTERN "
     done
 
+    SET_FOLLOW=""
+    if [ $FOLLOW ] 
+    then
+        SET_FOLLOW+="--follow"
+    fi
+
     # Create command and remove extra quotes
-    COMMAND=`echo "blc $1 $EXCLUDE" | sed 's/"//g'`
+    COMMAND=`echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g'`
 
     # Put result in variable with $()
     OUTPUT=$(exec $COMMAND)
 
 else
-    echo "Without a config file."
+    echo "Can't find $ENV_CONFIG"
     OUTPUT=$(exec blc $1)
 fi
 

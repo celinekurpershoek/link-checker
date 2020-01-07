@@ -11,7 +11,7 @@ npm i -g broken-link-checker -s
 echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 
 # todo map variables to names
-echo -e "Running broken link checker on url: $GREEN $1 $2 $3 $NC"
+echo -e "Running broken link checker on url: $GREEN $1 $NC"
 
 
 # IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $CONFIG_FILE`

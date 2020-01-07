@@ -10,7 +10,7 @@ inputs:
     description: 'Overwrite standard skipping rel=nofollow links'
     required: false
     default: true
-  ignorePatterns: 
+  ignoreUrls: 
     description: 'Ignore urls based on strings'
     required: false
     default: ''
@@ -22,3 +22,5 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.url }}
+    - ${{ inputs.follow }}
+    - ${{ inputs.ignoreUrls }}

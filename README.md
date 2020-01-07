@@ -21,10 +21,47 @@ jobs:
       id: link-report
       uses: celinekurpershoek/github-actions-link-checker@master
       with:
-        url: '{YOUR URL HERE}'
+        url: '{Site url to check}' /* (https://..) */
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"
 ```
 
+## Exclude urls
+
+Create a new config.json file in your repository with this as an example:
+
+```
+{
+    "ignorePatterns": [
+        {
+            "pattern": "linkedin"
+        },
+        {
+            "pattern": "example2"
+        }
+    ]
+}
+```
+
+In the .github/workflows/action.yml add extra lines below url:
+
+```
+... rest of config file
+    - name: Check links
+      id: link-report
+      uses: celinekurpershoek/github-actions-link-checker@master
+      with:
+        url: '{Site url to check}' /* (https://..) */
+      env: 
+        CONFIG_FILE: '{Path to file.json}
+... rest of action file
+```
+
+
 ### todo:
-- [ ] Make it possible to ignore specific URLS
+- [ ] Create issue for broken urls
+
+
+### Test
+There is a broken link in this document as a test:
+[A broken link](http://jhgfdsadfghjklkjhgfdsasdfgh.alsj)

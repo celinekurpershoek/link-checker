@@ -8,15 +8,36 @@ YELLOW='\033[0;33m'
 npm i -g broken-link-checker
 
 # TODO:
-# Pass ignorable urls
-# Make it itegrateable? (throw warning?)
+# cant use the variables on the pattern
+# make it overwritable
+# fail when a link is broken and not ignored
+
+# Get ignore patterns from config file: 
 
 echo -e "${YELLOW}=========================> BROKEN LINK CHECKER <=========================${NC}"
 echo "Running broken link checker on url: $1"
 
-# Use tee to also log output:
-# OUTPUT=$(exec blc $1 | tee /dev/stderr)
-OUTPUT="$(exec blc $1)"
+if [ -f "$ENV_CONFIG" ]; then
+    IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $ENV_CONFIG`
+    echo -e "with config file: ${GREEN}$ENV_CONFIG${NC}"
+
+    # Create exclude string based on config file
+    EXCLUDE=""
+    
+    for PATTERN in $IGNORE_PATTERNS; do
+        EXCLUDE+="--exclude $PATTERN "
+    done
+
+    # Create command and remove extra quotes
+    COMMAND=`echo "blc $1 $EXCLUDE" | sed 's/"//g'`
+
+    # Put result in variable with $()
+    OUTPUT=$(exec $COMMAND)
+
+else
+    echo "Without a config file."
+    OUTPUT=$(exec blc $1)
+fi
 
 # Count broken and total links
 BROKEN_COUNT=$(grep -o 'BROKEN' <<< $OUTPUT | grep 'BROKEN' -c)

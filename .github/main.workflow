@@ -5,5 +5,4 @@ workflow "Link check" {
 
 action "linkcheck" {
   uses = "./workflows/main.yml"
-  args = "https://voorhoede.nl"
 }

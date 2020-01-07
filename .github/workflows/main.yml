@@ -9,6 +9,6 @@ jobs:
       id: link-report
       uses: celinekurpershoek/github-actions-link-checker@master
       with:
-        url: 'https://voorhoede.nl'
+        url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

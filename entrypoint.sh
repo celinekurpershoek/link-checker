@@ -7,7 +7,7 @@ YELLOW='\033[0;33m'
 
 npm i -g broken-link-checker -s
 
-CONFIG_FILE=blc-config.json
+CONFIG_FILE=blc_config.json
 
 echo -e "$YELLOW=========================> BROKEN LINK CHECKER <=========================$NC"
 echo -e "Running broken link checker on url: $GREEN $1 $NC"

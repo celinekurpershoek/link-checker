@@ -1,6 +1,8 @@
 name: 'broken-link-check'
 description: 'Find broken links, missing images, etc within your HTML.'
 author: 'Celine Kurpershoek'
+icon: anchor
+color: purple
 inputs:
   url:  # id of input
     description: 'Url of site'

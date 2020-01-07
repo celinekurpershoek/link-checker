@@ -13,7 +13,6 @@ echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 # todo map variables to names
 echo -e "Running broken link checker on url: $GREEN $1 $NC"
 
-
 # IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $CONFIG_FILE`
 echo -e "with settings: $PURPLE skip no-follow links: $YELLOW$2, $PURPLE exclude urls that match: $YELLOW$3 $NC"
 
@@ -25,7 +24,7 @@ for PATTERN in $3; do
 done
 
 SET_FOLLOW=""
-if [ $2 = true ] 
+if [ $2 = false ] 
 then
     SET_FOLLOW+="--follow"
 fi

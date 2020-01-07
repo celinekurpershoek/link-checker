@@ -64,4 +64,4 @@ In the .github/workflows/action.yml add extra lines below url:
 
 ### Test
 There is a broken link in this document as a test:
-[A broken link](http://jhgfdsadfghjklkjhgfdsasdfgh.alsj)
+[A broken link](http://jhgfdsadfghjklkjhgfdsasdfgh.com)

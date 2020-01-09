@@ -9,12 +9,12 @@ inputs:
     description: 'Url of site'
     required: true
     default: 'https://github.com/celinekurpershoek/github-actions-link-checker'
-  follow:
+  honorRobotExclusions:
     description: 'Overwrite standard skipping rel=nofollow links'
     required: false
     default: true
-  ignoreUrls: 
-    description: 'Ignore urls based on strings'
+  ignorePatterns: 
+    description: 'Ignore urls based on patterns'
     required: false
     default: ''
 outputs:
@@ -25,5 +25,5 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.url }}
-    - ${{ inputs.follow }}
-    - ${{ inputs.ignoreUrls }}
+    - ${{ inputs.skipNoFollowLinks }}
+    - ${{ inputs.ignorePatterns }}

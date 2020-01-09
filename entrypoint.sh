@@ -6,33 +6,38 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 PURPLE='\033[0;34m'
 
-npm i -g broken-link-checker -s
+# npm i -g broken-link-checker -s
 
 echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 
 # todo map variables to names
 echo -e "Running broken link checker on url: $GREEN $1 $NC"
-
-# IGNORE_PATTERNS=`jq '.ignorePatterns | .[] | .pattern' $CONFIG_FILE`
-echo -e "with settings: $PURPLE skip no-follow links: $YELLOW$2, $PURPLE exclude urls that match: $YELLOW$3 $NC"
-
+SETTINGS=""
 # Create exclude string based on config file
 EXCLUDE=""
 
 for PATTERN in $3; do
     EXCLUDE+="--exclude $PATTERN "
+    SETTINGS+="Exclude urls: $GREEN$3$NC "
 done
 
 SET_FOLLOW=""
-if [ $2 = false ] 
+if [ "$2" != "" ] 
 then
     SET_FOLLOW+="--follow"
+    SETTINGS+="Honor robot exclusions: $GREEN$2$NC "
+fi
+
+# Echo settings if any are set
+if [ -n "$SETTINGS" ] 
+then
+echo -e "Configuration: $SETTINGS \n"
 fi
 
 # Create command and remove extra quotes
 COMMAND=`echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g'`
 
-# Put result in variable with $()
+# Put result in variable
 OUTPUT=`exec $COMMAND`
 
 # Count broken and total links
@@ -42,15 +47,15 @@ TOTAL_COUNT=`grep -o '├' <<< $OUTPUT | grep '├' -c`
 if [ $BROKEN_COUNT -gt 0 ]
 then 
     RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)" 
-    echo -e "$RED ✗ Failed $RESULT: $NC"
+    echo -e "$RED Failed $RESULT: $NC"
     #todo put each result on new line:
-    echo `grep -E 'BROKEN' <<< $OUTPUT | awk '{print "- " $2 "\n" }'`
+    echo `grep -E 'BROKEN' <<< $OUTPUT | awk '{print "[✗] " $2 "\n" }'`
+    echo -e "$PURPLE ============================== $NC"
+    echo ::set-output name=result::$RESULT
     exit 1
 else 
     RESULT="✓ Checked $TOTAL_COUNT link(s), no broken links found!"
     echo -e "$GREEN $RESULT $NC"
+    echo ::set-output name=result::$RESULT
+    echo -e "$PURPLE ============================== $NC"
 fi
-
-echo ::set-output name=result::$RESULT
-
-echo -e "$PURPLE ============================== $NC"

@@ -6,11 +6,12 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 PURPLE='\033[0;34m'
 
-# npm i -g broken-link-checker -s
+# Install the broken-link-checker module globally on the docker instance
+npm i -g broken-link-checker -s
 
 echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 
-# todo map variables to names
+# @todo map variables to names
 echo -e "Running broken link checker on url: $GREEN $1 $NC"
 SETTINGS=""
 # Create exclude string based on config file
@@ -48,7 +49,7 @@ if [ $BROKEN_COUNT -gt 0 ]
 then 
     RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)" 
     echo -e "$RED Failed $RESULT: $NC"
-    #todo put each result on new line:
+    # @todo put each result on new line:
     echo `grep -E 'BROKEN' <<< $OUTPUT | awk '{print "[✗] " $2 "\n" }'`
     echo -e "$PURPLE ============================== $NC"
     echo ::set-output name=result::$RESULT

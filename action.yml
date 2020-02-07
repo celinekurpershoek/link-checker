@@ -25,5 +25,5 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.url }}
-    - ${{ inputs.skipNoFollowLinks }}
+    - ${{ inputs.honorRobotExclusions }}
     - ${{ inputs.ignorePatterns }}

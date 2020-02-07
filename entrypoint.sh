@@ -13,16 +13,17 @@ echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 
 # @todo map variables to names
 echo -e "Running broken link checker on url: $GREEN $1 $NC"
+
+# Create exclude and settings strings based on configuration
 SETTINGS=""
-# Create exclude string based on config file
 EXCLUDE=""
+SET_FOLLOW=""
 
 for PATTERN in $3; do
     EXCLUDE+="--exclude $PATTERN "
     SETTINGS+="Exclude urls: $GREEN$3$NC "
 done
 
-SET_FOLLOW=""
 if [ "$2" != "" ] 
 then
     SET_FOLLOW+="--follow"
@@ -38,7 +39,7 @@ fi
 # Create command and remove extra quotes
 COMMAND=`echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g'`
 
-# Put result in variable
+# Put result in variable to be able to iterate on it later
 OUTPUT=`exec $COMMAND`
 
 # Count broken and total links

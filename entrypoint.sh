@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Fail when any task exits with a non zero error;
+set -e
 
 NC='\033[0m' # No Color
 RED='\033[0;31m'

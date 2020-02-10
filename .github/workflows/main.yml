@@ -11,7 +11,7 @@ jobs:
       uses: celinekurpershoek/github-actions-link-checker@feat/change-naming-add-licence
       with:
         url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
-        honorRobotExclusions: false
+        honorRobotExclusions: true
         ignorePatterns: 'github'
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

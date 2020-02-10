@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: Check for broken links
       id: link-report
-      uses: celinekurpershoek/github-actions-link-checker@v1
+      uses: celinekurpershoek/github-actions-link-checker@v1.0.0
       with:
         url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
         honorRobotExclusions: true

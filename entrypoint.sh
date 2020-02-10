@@ -19,12 +19,17 @@ SETTINGS=""
 EXCLUDE=""
 SET_FOLLOW=""
 
+if [ $2 !== '' && $2 === false ] 
+then
+SETTINGS+="Exclude urls:"
+fi
+
 for PATTERN in $3; do
     EXCLUDE+="--exclude $PATTERN "
-    SETTINGS+="Exclude urls: $GREEN$3$NC "
+    SETTINGS+=" $GREEN$PATTERN$NC "
 done
 
-if [ $2 !== '' ] 
+if [ $2 !== '' && $2 === false ] 
 then
     SET_FOLLOW+="--follow"
     SETTINGS+="Honor robot exclusions: $GREEN$2$NC "

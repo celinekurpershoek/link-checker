@@ -35,14 +35,26 @@ done
 # Echo settings if any are set
 echo -e "Configuration: Honor robot exclusions: $GREEN$2$NC, Exclude urls that match: $GREEN$3$NC \n"
 
-# Create command and remove extra quotes
-# COMMAND="$(echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g')"
-# Put result in variable to be able to iterate on it later
-OUTPUT="$(blc "$1" "$EXCLUDE" "$SET_FOLLOW" | sed 's/"//g')"
+# problem, when there is no broken link there is no output.
+# when run with --follow its fine
+# when run without --follow it gives nothing back.
 
-# Count broken and total links
-BROKEN_COUNT=$(grep -o 'BROKEN' <<< "$OUTPUT" | grep 'BROKEN' -c)
-TOTAL_COUNT=$(grep -o '├' <<< "$OUTPUT" | grep '├' -c)
+
+
+# Create command and remove extra quotes
+# Put result in variable to be able to iterate on it later
+OUTPUT="$(blc "$1" "$EXCLUDE" $SET_FOLLOW -v | sed 's/"//g')"
+
+# Count lines of output
+TOTAL_COUNT="$(wc -l <<< "$OUTPUT")"
+
+if grep -q 'BROKEN' <<< "$OUTPUT" 
+then
+    BROKEN="$(grep -q 'BROKEN' <<< "$OUTPUT")"
+    BROKEN_COUNT="$(wc -l <<< "$BROKEN")"
+else 
+    BROKEN_COUNT=0
+fi
 
 if [ "$BROKEN_COUNT" -gt 0 ] 
 then 

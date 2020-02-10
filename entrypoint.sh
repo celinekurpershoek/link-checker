@@ -67,4 +67,5 @@ else
     echo -e "$GREEN $RESULT $NC"
     echo ::set-output name=result::$RESULT
     echo -e "$PURPLE ============================== $NC"
+    exit 0
 fi

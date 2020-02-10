@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: Check for broken links
       id: link-report
-      uses: celinekurpershoek/github-actions-link-checker@master
+      uses: celinekurpershoek/github-actions-link-checker@feat/change-naming-add-licence
       with:
         url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
         honorRobotExclusions: false

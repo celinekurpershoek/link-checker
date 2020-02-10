@@ -15,7 +15,7 @@ jobs:
           ignorePatterns: 'github'
       - shell: bash
         run: |
-          steps.link-report.outputs.result > link-result.txt
+          ${{ steps.link-report.outputs.result }} > link-result.txt
       - name: Upload link report results
         uses: actions/upload-artifact@v1
         with:

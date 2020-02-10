@@ -24,7 +24,7 @@ for PATTERN in $3; do
     SETTINGS+="Exclude urls: $GREEN$3$NC "
 done
 
-if [ "$2" != "" ] 
+if [ $2 !== '' ] 
 then
     SET_FOLLOW+="--follow"
     SETTINGS+="Honor robot exclusions: $GREEN$2$NC "

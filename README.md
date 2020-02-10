@@ -7,9 +7,10 @@ Find broken links in your website.
 ## How to use
 Create a new file in your repository .github/workflows/action.yml.
 
-Copy-paste the folloing workflow in your action.yml file:
+Copy-paste the following workflow in your action.yml file:
 
 ```yml
+name: Broken link check
 on: [push]
 
 jobs:
@@ -17,15 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Check for broken links
     steps:
-    - name: Check links
+    - name: Check for broken links
       id: link-report
-      uses: celinekurpershoek/github-actions-link-checker@master
+      uses: celinekurpershoek/github-actions-link-checker@{version}
       with:
         # Required:
         url: 'https://...'
         # optional:
         honorRobotExclusions: false
-        ignorePatterns: 'github'
+        ignorePatterns: 'github,google'
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"
 ```

@@ -12,8 +12,6 @@ PURPLE='\033[0;34m'
 npm i -g broken-link-checker -s
 
 echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
-
-# @todo map variables to names
 echo -e "Running broken link checker on url: $GREEN $1 $NC"
 
 # Create exclude and settings strings based on configuration
@@ -35,12 +33,6 @@ done
 # Echo settings if any are set
 echo -e "Configuration: Honor robot exclusions: $GREEN$2$NC, Exclude urls that match: $GREEN$3$NC \n"
 
-# problem, when there is no broken link there is no output.
-# when run with --follow its fine
-# when run without --follow it gives nothing back.
-
-
-
 # Create command and remove extra quotes
 # Put result in variable to be able to iterate on it later
 OUTPUT="$(blc "$1" "$EXCLUDE" $SET_FOLLOW -v | sed 's/"//g')"
@@ -48,6 +40,7 @@ OUTPUT="$(blc "$1" "$EXCLUDE" $SET_FOLLOW -v | sed 's/"//g')"
 # Count lines of output
 TOTAL_COUNT="$(wc -l <<< "$OUTPUT")"
 
+# Count 'BROKEN' lines of result or return 0
 if grep -q 'BROKEN' <<< "$OUTPUT" 
 then
     BROKEN="$(grep -q 'BROKEN' <<< "$OUTPUT")"
@@ -56,11 +49,11 @@ else
     BROKEN_COUNT=0
 fi
 
+# Return results
 if [ "$BROKEN_COUNT" -gt 0 ] 
 then 
     RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)" 
     echo -e "$RED Failed $RESULT: $NC"
-    # @todo put each result on new line:
     grep -E 'BROKEN' <<< "$OUTPUT" | awk '{print "[✗] " $2 "\n" }'
     echo -e "$PURPLE ============================== $NC"
     echo ::set-output name=result::"$RESULT"

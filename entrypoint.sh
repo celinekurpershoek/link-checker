@@ -17,10 +17,10 @@ echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 echo -e "Running broken link checker on url: $GREEN $1 $NC"
 
 # Create exclude and settings strings based on configuration
-EXCLUDE=""
+EXCLUDE="" 
 SET_FOLLOW=""
 
-if [ -z $1 ] || [ $1 == 'https://github.com/celinekurpershoek/github-actions-link-checker' ]
+if [ -z "$1" ] || [ "$1" == 'https://github.com/celinekurpershoek/github-actions-link-checker' ]
 then
     echo -e "$YELLOW Warning: Running test on default url, please provide an url in you action yml.$NC"
 fi
@@ -36,33 +36,30 @@ done
 echo -e "Configuration: Honor robot exclusions: $GREEN$2$NC, Exclude urls that match: $GREEN$3$NC \n"
 
 # Create command and remove extra quotes
-COMMAND=`echo "blc -v $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g'`
-
+# COMMAND="$(echo "blc $1 $EXCLUDE $SET_FOLLOW" | sed 's/"//g')"
 # Put result in variable to be able to iterate on it later
-echo $COMMAND
-OUTPUT=`exec $COMMAND`
-echo $OUTPUT
-# Count broken and total links
-BROKEN_COUNT=`grep -o 'BROKEN' <<< $OUTPUT | grep 'BROKEN' -c`
-TOTAL_COUNT=`grep -o '├' <<< $OUTPUT | grep '├' -c`
+OUTPUT="$(blc "$1" "$EXCLUDE" "$SET_FOLLOW" | sed 's/"//g')"
 
-if [ $BROKEN_COUNT -gt 0 ] 
+# Count broken and total links
+BROKEN_COUNT=$(grep -o 'BROKEN' <<< "$OUTPUT" | grep 'BROKEN' -c)
+TOTAL_COUNT=$(grep -o '├' <<< "$OUTPUT" | grep '├' -c)
+
+if [ "$BROKEN_COUNT" -gt 0 ] 
 then 
     RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)" 
     echo -e "$RED Failed $RESULT: $NC"
     # @todo put each result on new line:
-    echo `grep -E 'BROKEN' <<< $OUTPUT | awk '{print "[✗] " $2 "\n" }'`
+    grep -E 'BROKEN' <<< "$OUTPUT" | awk '{print "[✗] " $2 "\n" }'
     echo -e "$PURPLE ============================== $NC"
-    echo ::set-output name=result::$RESULT
+    echo ::set-output name=result::"$RESULT"
     exit 1
-else if [ $TOTAL_COUNT == 0 ]
+elif [ "$TOTAL_COUNT" == 0 ]
 then
     echo -e "Did'nt find any links to check"
-    exit 0
 else 
     RESULT="✓ Checked $TOTAL_COUNT link(s), no broken links found!"
     echo -e "$GREEN $RESULT $NC"
-    echo ::set-output name=result::$RESULT
+    echo ::set-output name=result::"$RESULT"
     echo -e "$PURPLE ============================== $NC"
-    exit 0
 fi
+exit 0

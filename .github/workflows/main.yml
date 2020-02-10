@@ -2,7 +2,8 @@ name: Broken link check
 on: [push]
 
 jobs:
-  broken_link_checker_job:
+
+  job1:
     runs-on: ubuntu-latest
     name: Check for broken links
     steps:
@@ -14,4 +15,29 @@ jobs:
         honorRobotExclusions: true
         ignorePatterns: 'github'
     - name: Get the result
-      run: echo "${{steps.link-report.outputs.result}}"
+      - shell: bash
+        run: steps.link-report.outputs.result > actions/link-result.txt
+      - name: Upload link report results
+        uses: actions/upload-artifact@v1
+        with:
+          name: results
+          path: link-results.txt
+
+  job2:
+    - name: Comment results on PR
+      runs-on: ubuntu-latest
+      uses: mshick/add-pr-comment@v1
+      needs: job1
+      steps:
+      - name: Download link-results
+        uses: actions/download-artifact@v1
+        with:
+          name: results
+      - name: Comment results
+      with:
+        message: |
+          **Hello**
+          🌏
+          !
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        allow-repeats: false  

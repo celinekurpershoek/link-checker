@@ -2,16 +2,40 @@ name: Broken link check
 on: [push]
 
 jobs:
-  broken_link_checker_job:
-    runs-on: ubuntu-latest
+  job1:
     name: Check for broken links
+    runs-on: ubuntu-latest
     steps:
-    - name: Check for broken links
-      id: link-report
-      uses: celinekurpershoek/github-actions-link-checker@v1.0.0
-      with:
-        url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
-        honorRobotExclusions: true
-        ignorePatterns: 'github'
-    - name: Get the result
-      run: echo "${{steps.link-report.outputs.result}}"
+      - name: Check for broken links
+        id: link-report
+        uses: celinekurpershoek/github-actions-link-checker@v1.0.0
+        with:
+          url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
+          honorRobotExclusions: true
+          ignorePatterns: 'github'
+      - shell: bash
+        run: |
+          ${{ steps.link-report.outputs.result }} > link-result.txt
+      - name: Upload link report results
+        uses: actions/upload-artifact@v1
+        with:
+          name: results
+          path: link-results.txt
+  job2:
+    name: Comment results on PR
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download link-results
+        uses: actions/download-artifact@v1
+        with:
+          name: results
+      - name: Comment results
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            **Hello**
+            🌏
+            !
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-repeats: false  

@@ -20,7 +20,7 @@ inputs:
   recursiveLinks: 
     description: 'Walkt through the whole website and check all the urls'
     required: false
-    default: false
+    default: true
 outputs:
   result: # id of output
     description: 'Report of links'

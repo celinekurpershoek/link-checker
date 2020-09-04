@@ -13,5 +13,6 @@ jobs:
         url: 'https://github.com/celinekurpershoek/github-actions-link-checker'
         honorRobotExclusions: true
         ignorePatterns: 'github'
+        recursiveLinks: true
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"

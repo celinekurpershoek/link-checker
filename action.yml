@@ -17,6 +17,10 @@ inputs:
     description: 'Ignore urls based on patterns'
     required: false
     default: ''
+  recursiveLinks: 
+    description: 'Walkt through the whole website and check all the urls'
+    required: false
+    default: false
 outputs:
   result: # id of output
     description: 'Report of links'
@@ -27,3 +31,4 @@ runs:
     - ${{ inputs.url }}
     - ${{ inputs.honorRobotExclusions }}
     - ${{ inputs.ignorePatterns }}
+    - ${{ inputs.recursiveLinks }}

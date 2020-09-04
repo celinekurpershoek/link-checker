@@ -20,7 +20,7 @@ jobs:
     steps:
     - name: Check for broken links
       id: link-report
-      uses: celinekurpershoek/github-actions-link-checker@{version}
+      uses: celinekurpershoek/github-actions-link-checker@1.1.1
       with:
         # Required:
         url: 'https://...'

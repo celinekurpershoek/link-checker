@@ -26,6 +26,8 @@ fi
 # Set arguments for blc
 [ "$2" == false ] && SET_FOLLOW="--follow"
 
+[ "$4" == true ] && SET_RECURSIVE="--ro"
+
 for PATTERN in ${3//,/ }; do
     EXCLUDE+="--exclude $PATTERN "
 done
@@ -35,7 +37,7 @@ echo -e "Configuration: Honor robot exclusions: $GREEN$2$NC, Exclude urls that m
 
 # Create command and remove extra quotes
 # Put result in variable to be able to iterate on it later
-OUTPUT="$(blc "$1" "$EXCLUDE" $SET_FOLLOW -v | sed 's/"//g')"
+OUTPUT="$(blc "$1" "$EXCLUDE" $SET_FOLLOW "$SET_RECURSIVE" -v | sed 's/"//g')"
 
 # Count lines of output
 TOTAL_COUNT="$(wc -l <<< "$OUTPUT")"

@@ -27,7 +27,7 @@ jobs:
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'github,google'
-        recursiveUrls: false # Check all urls on all reachable pages (could take a while)
+        recursiveLinks: false # Check all urls on all reachable pages (could take a while)
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"
 ```

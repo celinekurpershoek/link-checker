@@ -26,7 +26,7 @@ fi
 # Set arguments for blc
 [ "$2" == false ] && SET_FOLLOW="--follow"
 
-[ "$4" == true ] && SET_RECURSIVE="--ro"
+[ "$4" == true ] && SET_RECURSIVE="-ro"
 
 for PATTERN in ${3//,/ }; do
     EXCLUDE+="--exclude $PATTERN "

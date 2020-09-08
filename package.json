@@ -1,0 +1,13 @@
+{
+  "name": "blc",
+  "version": "1.0.0",
+  "description": "foo",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "blc": "./node_modules/.bin/blc"
+  },
+  "dependencies": {
+    "broken-link-checker": "^0.7.8"
+  }
+}

@@ -9,17 +9,17 @@ YELLOW='\033[0;33m'
 PURPLE='\033[0;34m'
 
 # Install the broken-link-checker module globally on the docker instance
-npm i -g broken-link-checker -s
+#npm i -g broken-link-checker -s
 
 echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
 echo -e "Running broken link checker on url: $GREEN $1 $NC"
 
 # Create exclude and settings strings based on configuration
-EXCLUDE="" 
+EXCLUDE=""
 SET_FOLLOW=""
 SET_RECURSIVE=""
 
-if [ -z "$1" ] || [ "$1" == 'https://github.com/celinekurpershoek/github-actions-link-checker' ]
+if [ -z "$1" ] || [ "$1" == 'https://github.com/ocular-d/github-actions-link-checker' ]
 then
     echo -e "$YELLOW Warning: Running test on default url, please provide an url in you action yml.$NC"
 fi
@@ -44,18 +44,18 @@ OUTPUT="$(blc "$1" "$EXCLUDE" $SET_FOLLOW $SET_RECURSIVE -v | sed 's/"//g')"
 TOTAL_COUNT="$(wc -l <<< "$OUTPUT")"
 
 # Count 'BROKEN' lines of result or return 0
-if grep -q 'BROKEN' <<< "$OUTPUT" 
+if grep -q 'BROKEN' <<< "$OUTPUT"
 then
     BROKEN="$(grep -q 'BROKEN' <<< "$OUTPUT")"
     BROKEN_COUNT="$(wc -l <<< "$BROKEN")"
-else 
+else
     BROKEN_COUNT=0
 fi
 
 # Return results
-if [ "$BROKEN_COUNT" -gt 0 ] 
-then 
-    RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)" 
+if [ "$BROKEN_COUNT" -gt 0 ]
+then
+    RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)"
     echo -e "$RED Failed $RESULT: $NC"
     grep -E 'BROKEN' <<< "$OUTPUT" | awk '{print "[✗] " $2 "\n" }'
     echo -e "$PURPLE ============================== $NC"
@@ -64,7 +64,7 @@ then
 elif [ "$TOTAL_COUNT" == 0 ]
 then
     echo -e "Did'nt find any links to check"
-else 
+else
     RESULT="✓ Checked $TOTAL_COUNT link(s), no broken links found!"
     echo -e "$GREEN $RESULT $NC"
     echo ::set-output name=result::"$RESULT"

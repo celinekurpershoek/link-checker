@@ -7,8 +7,11 @@ jobs:
     name: Check for broken links
     steps:
     - name: Check for broken links
-      id: link-report
-      uses: ocular-d/link-checker@v0.0.1
+      #id: link-report
+    - uses: ocular-d/link-checker@update-docker
+    - name: local-test
+      uses: ./
+      
       with:
         url: 'https://github.com/ocular-d/link-checker'
         honorRobotExclusions: true

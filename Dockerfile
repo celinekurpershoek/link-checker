@@ -20,10 +20,13 @@ RUN mkdir "$HOME/.npm-global" \
 
 
 COPY --chown=node:node package.json package.json
+COPY --chown=node:node entrypoint.sh entrypoint.sh
+
 RUN npm install \
     && npm link \
     && npm cache clean --force
-COPY --chown=node:node test.sh test.sh
+#COPY --chown=node:node test.sh test.sh
 RUN chmod +x test.sh
-ENTRYPOINT [ "bash" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
+#ENTRYPOINT [ "bash" ]
 #ENTRYPOINT ["./test.sh"]

@@ -20,7 +20,7 @@ jobs:
     steps:
     - name: Check for broken links
       id: link-report
-      uses: celinekurpershoek/github-actions-link-checker@v1.0.1
+      uses: ocular-d/link-checker@v0.0.1
       with:
         # Required:
         url: 'https://...'
@@ -32,7 +32,7 @@ jobs:
       run: echo "${{steps.link-report.outputs.result}}"
 ```
 
-## Optional paramters:
+## Optional parameters:
 
 ### `honorRobotExclusions`
 Type: `Boolean`
@@ -43,7 +43,7 @@ https://github.com/stevenvachon/broken-link-checker#honorrobotexclusions
 ### `ignorePatterns`
 type: `String`
 Default value: `''`
-A comma separted string of matched urls to ignore. Check documentation about patterns here: https://github.com/stevenvachon/broken-link-checker#excludedkeywords
+A comma separated string of matched urls to ignore. Check documentation about patterns here: https://github.com/stevenvachon/broken-link-checker#excludedkeywords
 
 ### `recursiveLinks`
 type: `Boolean`

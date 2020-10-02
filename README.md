@@ -32,7 +32,7 @@ jobs:
       run: echo "${{steps.link-report.outputs.result}}"
 ```
 
-## Optional paramters:
+## Optional parameters:
 
 ### `honorRobotExclusions`
 Type: `Boolean`
@@ -43,7 +43,7 @@ https://github.com/stevenvachon/broken-link-checker#honorrobotexclusions
 ### `ignorePatterns`
 type: `String`
 Default value: `''`
-A comma separted string of matched urls to ignore. Check documentation about patterns here: https://github.com/stevenvachon/broken-link-checker#excludedkeywords
+A comma-separated string of matched urls to ignore. Check documentation about patterns here: https://github.com/stevenvachon/broken-link-checker#excludedkeywords
 
 ### `recursiveLinks`
 type: `Boolean`

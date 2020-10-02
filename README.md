@@ -27,7 +27,7 @@ jobs:
         # optional:
         honorRobotExclusions: false
         ignorePatterns: 'github,google'
-        recursiveLinks: false # Check all urls on all reachable pages (could take a while)
+        recursiveLinks: false # Check all URLs on all reachable pages (could take a while)
     - name: Get the result
       run: echo "${{steps.link-report.outputs.result}}"
 ```
@@ -43,7 +43,7 @@ https://github.com/stevenvachon/broken-link-checker#honorrobotexclusions
 ### `ignorePatterns`
 type: `String`
 Default value: `''`
-A comma-separated string of matched urls to ignore. Check documentation about patterns here: https://github.com/stevenvachon/broken-link-checker#excludedkeywords
+A comma-separated string of matched URLs to ignore. Check documentation about patterns here: https://github.com/stevenvachon/broken-link-checker#excludedkeywords
 
 ### `recursiveLinks`
 type: `Boolean`
@@ -52,7 +52,7 @@ A boolean to do a site-wide check, it will add the `blc` `-ro` param to the comm
 
 
 ## todo:
-- [ ] Create issue if broken urls are found
+- [ ] Create issue if broken URLs are found
 - [ ] Parse each broken link in report on new line
 
 

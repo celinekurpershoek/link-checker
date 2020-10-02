@@ -1,5 +1,5 @@
 #!/bin/bash
-# Fail when any task exits with a non zero error;
+# Fail when any task exits with a non-zero error
 set -e
 
 NC='\033[0m' # No Color
@@ -21,7 +21,7 @@ SET_RECURSIVE=""
 
 if [ -z "$1" ] || [ "$1" == 'https://github.com/celinekurpershoek/github-actions-link-checker' ]
 then
-    echo -e "$YELLOW Warning: Running test on default url, please provide an url in you action yml.$NC"
+    echo -e "$YELLOW Warning: Running test on default url, please provide a url in your action.yml.$NC"
 fi
 
 # Set arguments for blc
@@ -55,7 +55,7 @@ fi
 # Return results
 if [ "$BROKEN_COUNT" -gt 0 ] 
 then 
-    RESULT="$BROKEN_COUNT broken url(s) found ($TOTAL_COUNT total)" 
+    RESULT="$BROKEN_COUNT broken link(s) found (out of $TOTAL_COUNT total)"
     echo -e "$RED Failed $RESULT: $NC"
     grep -E 'BROKEN' <<< "$OUTPUT" | awk '{print "[✗] " $2 "\n" }'
     echo -e "$PURPLE ============================== $NC"
@@ -63,7 +63,7 @@ then
     exit 1
 elif [ "$TOTAL_COUNT" == 0 ]
 then
-    echo -e "Did'nt find any links to check"
+    echo -e "Didn't find any links to check"
 else 
     RESULT="✓ Checked $TOTAL_COUNT link(s), no broken links found!"
     echo -e "$GREEN $RESULT $NC"

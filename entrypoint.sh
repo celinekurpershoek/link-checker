@@ -12,7 +12,7 @@ PURPLE='\033[0;34m'
 npm i -g broken-link-checker -s
 
 echo -e "$PURPLE=== BROKEN LINK CHECKER ===$NC"
-echo -e "Running broken link checker on url: $GREEN $1 $NC"
+echo -e "Running broken link checker on URL: $GREEN $1 $NC"
 
 # Create exclude and settings strings based on configuration
 EXCLUDE="" 
@@ -21,7 +21,7 @@ SET_RECURSIVE=""
 
 if [ -z "$1" ] || [ "$1" == 'https://github.com/celinekurpershoek/github-actions-link-checker' ]
 then
-    echo -e "$YELLOW Warning: Running test on default url, please provide a url in your action.yml.$NC"
+    echo -e "$YELLOW Warning: Running test on default URL, please provide a URL in your action.yml.$NC"
 fi
 
 # Set arguments for blc
@@ -34,7 +34,7 @@ for PATTERN in ${3//,/ }; do
 done
 
 # Echo settings if any are set
-echo -e "Configuration: \n Honor robot exclusions: $GREEN$2$NC, \n Exclude urls that match: $GREEN$3$NC, \n Resursive urls: $GREEN$4$NC"
+echo -e "Configuration: \n Honor robot exclusions: $GREEN$2$NC, \n Exclude URLs that match: $GREEN$3$NC, \n Resursive URLs: $GREEN$4$NC"
 
 # Create command and remove extra quotes
 # Put result in variable to be able to iterate on it later

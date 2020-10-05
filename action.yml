@@ -8,7 +8,7 @@ inputs:
   url:  # id of input
     description: 'Url of site'
     required: true
-    default: 'https://github.com/celinekurpershoek/github-actions-link-checker'
+    default: 'https://github.com/celinekurpershoek/link-checker'
   honorRobotExclusions:
     description: 'Overwrite standard skipping rel=nofollow links'
     required: false

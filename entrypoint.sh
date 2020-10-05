@@ -19,7 +19,7 @@ EXCLUDE=""
 SET_FOLLOW=""
 SET_RECURSIVE=""
 
-if [ -z "$1" ] || [ "$1" == 'https://github.com/celinekurpershoek/github-actions-link-checker' ]
+if [ -z "$1" ] || [ "$1" == 'https://github.com/celinekurpershoek/link-checker' ]
 then
     echo -e "$YELLOW Warning: Running test on default url, please provide an url in you action yml.$NC"
 fi

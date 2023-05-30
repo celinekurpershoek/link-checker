@@ -59,7 +59,7 @@ then
     echo -e "$RED Failed $RESULT: $NC"
     grep -E 'BROKEN' <<< "$OUTPUT" | awk '{print "[✗] " $2 "\n" }'
     echo -e "$PURPLE ============================== $NC"
-    echo "{name}={result}" >> "$GITHUB_OUTPUT"
+    echo "result=$RESULT" >> "$GITHUB_OUTPUT"
     exit 1
 elif [ "$TOTAL_COUNT" == 0 ]
 then
@@ -67,7 +67,7 @@ then
 else 
     RESULT="✓ Checked $TOTAL_COUNT link(s), no broken links found!"
     echo -e "$GREEN $RESULT $NC"
-    echo "{name}={result}" >> "$GITHUB_OUTPUT"
+    echo "result=$RESULT" >> "$GITHUB_OUTPUT"
     echo -e "$PURPLE ============================== $NC"
 fi
 exit 0
